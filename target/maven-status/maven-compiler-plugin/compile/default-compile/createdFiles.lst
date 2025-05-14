@@ -1,0 +1,12 @@
+pe\edu\vallegrande\msvstudents\MsvStudentsApplication.class
+pe\edu\vallegrande\msvstudents\controller\ClassroomStudentController.class
+pe\edu\vallegrande\msvstudents\service\StudentService.class
+pe\edu\vallegrande\msvstudents\controller\StudentController.class
+pe\edu\vallegrande\msvstudents\model\Student.class
+pe\edu\vallegrande\msvstudents\repository\ClassroomStudentRepository.class
+pe\edu\vallegrande\msvstudents\service\ClassroomStudentService.class
+pe\edu\vallegrande\msvstudents\model\ClassroomStudent.class
+pe\edu\vallegrande\msvstudents\service\impl\StudentServiceImpl.class
+pe\edu\vallegrande\msvstudents\repository\StudentRepository.class
+pe\edu\vallegrande\msvstudents\service\impl\ClassroomStudentServiceImpl.class
+pe\edu\vallegrande\msvstudents\config\MongoConfig.class
