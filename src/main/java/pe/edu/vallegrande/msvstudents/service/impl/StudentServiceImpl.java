@@ -40,7 +40,11 @@ public class StudentServiceImpl implements StudentService {
 
     @Override
     public Mono<Void> delete(String id) {
-        return studentRepository.deleteById(id);
+        return studentRepository.findById(id)
+            .flatMap(student -> {
+                student.setStatus("I");
+                return studentRepository.save(student).then();
+            });
     }
 
     @Override
@@ -56,5 +60,19 @@ public class StudentServiceImpl implements StudentService {
     @Override
     public Flux<Student> findByGender(String gender) {
         return studentRepository.findByGender(gender);
+    }
+
+    @Override
+    public Mono<Student> restore(String id) {
+        return studentRepository.findById(id)
+                .flatMap(student -> {
+                    if (student.getStatus().equals("I")) {
+                        student.setStatus("A");
+                        return studentRepository.save(student);
+                    } else {
+                        return Mono.just(student); // Ya está activo, no hacer nada o lanzar excepción
+                    }
+                })
+                .switchIfEmpty(Mono.error(new RuntimeException("Student not found"))); // Manejar caso no encontrado
     }
 } 

@@ -88,4 +88,11 @@ public class ClassroomStudentController {
             @PathVariable String status) {
         return classroomStudentService.findByClassroomIdAndStatus(classroomId, status);
     }
+
+    @PutMapping("/{id}/restore")
+    public Mono<ResponseEntity<ClassroomStudent>> restore(@PathVariable String id) {
+        return classroomStudentService.restore(id)
+                .map(ResponseEntity::ok)
+                .defaultIfEmpty(ResponseEntity.notFound().build());
+    }
 }

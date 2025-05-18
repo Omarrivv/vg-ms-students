@@ -163,6 +163,11 @@ GET http://localhost:8081/actuator/health
 - **Body:** _No requiere_
 - **Respuesta:** `200 OK` si se eliminó correctamente.
 
+### Restaurar estudiante
+- **PUT** `/api/v1/students/{id}/restore`
+- **Body:** _No requiere_
+- **Respuesta:** Estudiante restaurado (status = "A").
+
 ### Listar estudiantes por institución
 - **GET** `/api/v1/students/institution/{institutionId}`
 - **Body:** _No requiere_
@@ -240,6 +245,11 @@ GET http://localhost:8081/actuator/health
 - **Body:** _No requiere_
 - **Respuesta:** `200 OK` si se eliminó correctamente.
 
+### Restaurar matrícula
+- **PUT** `/api/v1/classroom-students/{id}/restore`
+- **Body:** _No requiere_
+- **Respuesta:** Matrícula restaurada (status = "A").
+
 ### Listar matrículas por estudiante
 - **GET** `/api/v1/classroom-students/student/{studentId}`
 - **Body:** _No requiere_
@@ -288,3 +298,14 @@ GET http://localhost:8081/actuator/health
 
 ## Autor
 - Vallegrande - Omar 
+
+---
+
+## Buenas Prácticas y Consideraciones
+
+- **Borrado lógico y Restauración:** El borrado de estudiantes y matrículas no elimina físicamente los documentos. En su lugar, se actualiza el campo `status` a "I" (inactivo). Es posible restaurar estos registros utilizando el endpoint de restauración, que cambia el `status` nuevamente a "A" (activo). Esto permite mantener el historial y trazabilidad de los datos.
+- **Filtros:** Todos los endpoints de listado permiten filtrar por estado (`A`=activo, `I`=inactivo), género, institución, año y periodo de matrícula.
+- **Estructura de entidades:**
+  - **Student:** Incluye campos como institutionId, nombres, apellidos, documento, género, fecha de nacimiento, dirección, teléfono, email, nombre para QR y status.
+  - **ClassroomStudent:** Relaciona estudiantes con aulas, incluye classroomId, studentId, fecha de matrícula, status, año y periodo de matrícula.
+- **Auditoría:** Se recomienda agregar campos de auditoría como createdAt, updatedAt, deletedAt para mayor trazabilidad. 

@@ -19,4 +19,5 @@ public interface ClassroomStudentService {
     Flux<ClassroomStudent> findByEnrollmentPeriod(String enrollmentPeriod);
     Flux<ClassroomStudent> findByStudentIdAndStatus(String studentId, String status);
     Flux<ClassroomStudent> findByClassroomIdAndStatus(String classroomId, String status);
+    Mono<ClassroomStudent> restore(String id);
 } 

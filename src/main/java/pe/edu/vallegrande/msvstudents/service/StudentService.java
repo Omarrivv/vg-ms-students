@@ -13,4 +13,5 @@ public interface StudentService {
     Flux<Student> findByInstitutionId(String institutionId);
     Flux<Student> findByStatus(String status);
     Flux<Student> findByGender(String gender);
+    Mono<Student> restore(String id);
 } 

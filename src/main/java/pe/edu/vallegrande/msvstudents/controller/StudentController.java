@@ -63,4 +63,11 @@ public class StudentController {
     public Flux<Student> findByGender(@PathVariable String gender) {
         return studentService.findByGender(gender);
     }
+
+    @PutMapping("/{id}/restore")
+    public Mono<ResponseEntity<Student>> restore(@PathVariable String id) {
+        return studentService.restore(id)
+                .map(ResponseEntity::ok)
+                .defaultIfEmpty(ResponseEntity.notFound().build());
+    }
 } 

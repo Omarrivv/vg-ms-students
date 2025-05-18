@@ -46,7 +46,11 @@ public class ClassroomStudentServiceImpl implements ClassroomStudentService {
 
     @Override
     public Mono<Void> delete(String id) {
-        return classroomStudentRepository.deleteById(id);
+        return classroomStudentRepository.findById(id)
+            .flatMap(classroomStudent -> {
+                classroomStudent.setStatus("I");
+                return classroomStudentRepository.save(classroomStudent).then();
+            });
     }
 
     @Override
@@ -114,5 +118,19 @@ public class ClassroomStudentServiceImpl implements ClassroomStudentService {
                     System.err.println("Error loading enrollments by classroom ID and status: " + e.getMessage());
                     return Flux.empty();
                 });
+    }
+
+    @Override
+    public Mono<ClassroomStudent> restore(String id) {
+        return classroomStudentRepository.findById(id)
+                .flatMap(classroomStudent -> {
+                    if (classroomStudent.getStatus().equals("I")) {
+                        classroomStudent.setStatus("A");
+                        return classroomStudentRepository.save(classroomStudent);
+                    } else {
+                        return Mono.just(classroomStudent); // Ya está activo
+                    }
+                })
+                .switchIfEmpty(Mono.error(new RuntimeException("ClassroomStudent not found")));
     }
 } 
