@@ -31,8 +31,17 @@ public class ClassroomStudentController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public Mono<ClassroomStudent> save(@RequestBody ClassroomStudent classroomStudent) {
-        return classroomStudentService.save(classroomStudent);
+    public Mono<ResponseEntity<Object>> save(@RequestBody ClassroomStudent classroomStudent) {
+        return classroomStudentService.save(classroomStudent)
+                .map(savedClassroomStudent -> ResponseEntity.status(HttpStatus.CREATED).body((Object)savedClassroomStudent))
+                .onErrorResume(e -> {
+                    if (e.getMessage().equals("El estudiante ya tiene una matrícula activa")) {
+                        return Mono.just(ResponseEntity.status(HttpStatus.CONFLICT)
+                                .body((Object)"El estudiante ya tiene una matrícula activa"));
+                    }
+                    return Mono.just(ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                            .body((Object)("Error al crear la matrícula: " + e.getMessage())));
+                });
     }
 
     @PutMapping("/{id}")

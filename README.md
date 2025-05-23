@@ -28,51 +28,7 @@ mvn spring-boot:run
 
 La aplicación se ejecuta en `http://localhost:8081` por defecto.
 
-## Despliegue con Docker Swarm
 
-1. Construir la aplicación:
-```bash
-mvn clean package -DskipTests
-```
-
-2. Inicializar Docker Swarm (si no está inicializado):
-```bash
-docker swarm init
-```
-
-3. Desplegar el stack:
-```bash
-docker stack deploy -c docker-compose.yml microservice
-```
-
-4. Verificar los servicios:
-```bash
-docker service ls
-docker stack services microservice
-```
-
-5. Verificar los logs:
-```bash
-docker service logs microservice_app
-```
-
-6. Para detener el stack:
-```bash
-docker stack rm microservice
-```
-
-7. Para salir del swarm:
-```bash
-docker swarm leave --force
-```
-
-## Health Check
-El servicio expone un endpoint de health check en:
-```
-GET http://localhost:8081/actuator/health
-```
-
----
 
 # ENDPOINTS Y DOCUMENTACIÓN
 
@@ -223,7 +179,10 @@ GET http://localhost:8081/actuator/health
   "enrollmentPeriod": "2024-1"
 }
 ```
-- **Respuesta:** Matrícula creada.
+- **Respuesta:** 
+  - Si la matrícula se crea correctamente: Matrícula creada (código 201)
+  - Si el estudiante ya tiene una matrícula activa: Error 409 (CONFLICT) con mensaje "El estudiante ya tiene una matrícula activa"
+  - Si ocurre otro error: Error 500 (INTERNAL_SERVER_ERROR) con mensaje descriptivo
 
 ### Actualizar matrícula
 - **PUT** `/api/v1/classroom-students/{id}`
@@ -292,6 +251,7 @@ GET http://localhost:8081/actuator/health
 - Los IDs se obtienen de los endpoints GET.
 - Los campos `enrollmentYear` y `enrollmentPeriod` permiten filtrar por año y periodo académico.
 - El backend maneja errores devolviendo listas vacías si no hay resultados o si ocurre un error en la consulta.
+- Un estudiante solo puede tener una matrícula activa a la vez. Si se intenta crear una nueva matrícula para un estudiante que ya tiene una activa, se devolverá un error 409.
 - Puedes probar los endpoints con Postman, Insomnia o curl.
 
 ---

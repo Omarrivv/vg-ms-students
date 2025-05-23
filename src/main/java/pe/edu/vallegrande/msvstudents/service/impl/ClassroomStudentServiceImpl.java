@@ -32,7 +32,15 @@ public class ClassroomStudentServiceImpl implements ClassroomStudentService {
 
     @Override
     public Mono<ClassroomStudent> save(ClassroomStudent classroomStudent) {
-        return classroomStudentRepository.save(classroomStudent);
+        // Verificar si el estudiante ya tiene una matrícula activa
+        return classroomStudentRepository.existsByStudentIdAndStatus(classroomStudent.getStudentId(), "A")
+                .flatMap(exists -> {
+                    if (exists) {
+                        return Mono.error(new RuntimeException("El estudiante ya tiene una matrícula activa"));
+                    }
+                    // Si no existe matrícula activa, proceder con el guardado
+                    return classroomStudentRepository.save(classroomStudent);
+                });
     }
 
     @Override
