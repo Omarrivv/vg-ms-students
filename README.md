@@ -1,3 +1,113 @@
+# Microservicio de Gestión de Estudiantes
+
+Este proyecto es un microservicio desarrollado con Spring Boot para la gestión de estudiantes de la institución educativa Valle Grande.
+
+## Estructura del Proyecto
+
+```
+backend/
+├── src/
+│   └── main/
+│       ├── java/
+│       │   └── pe/
+│       │       └── edu/
+│       │           └── vallegrande/
+│       │               └── msvstudents/           # Paquete principal
+│       │                   ├── controller/        # Controladores REST
+│       │                   ├── service/          # Lógica de negocio
+│       │                   ├── repository/       # Acceso a datos
+│       │                   ├── model/           # Entidades y modelos
+│       │                   ├── config/          # Configuraciones
+│       │                   └── MsvStudentsApplication.java  # Clase principal
+│       └── resources/                          # Recursos y configuraciones
+├── pom.xml                                    # Dependencias y configuración Maven
+└── otros archivos de configuración
+```
+
+## Descripción de los Componentes
+
+### Capas de la Aplicación
+
+1. **Controllers (`controller/`)**
+   - Maneja las peticiones HTTP
+   - Implementa los endpoints REST
+   - Gestiona las respuestas de la API
+
+2. **Servicios (`service/`)**
+   - Contiene la lógica de negocio
+   - Implementa las reglas de negocio
+   - Coordina las operaciones entre repositorios
+
+3. **Repositorios (`repository/`)**
+   - Gestiona el acceso a datos
+   - Implementa las operaciones CRUD
+   - Interactúa con la base de datos
+
+4. **Modelos (`model/`)**
+   - Define las entidades de la base de datos
+   - Contiene los DTOs (Data Transfer Objects)
+   - Implementa las estructuras de datos
+
+5. **Configuraciones (`config/`)**
+   - Configuraciones de Spring Boot
+   - Configuraciones de seguridad
+   - Configuraciones personalizadas
+
+## Requisitos Técnicos
+
+- Java 17 o superior
+- Maven 3.8.x o superior
+- Spring Boot 3.x
+- Base de datos (especificar tipo)
+
+## Configuración del Proyecto
+
+### Instalación
+
+1. Clonar el repositorio:
+```bash
+git clone [URL_DEL_REPOSITORIO]
+```
+
+2. Navegar al directorio del proyecto:
+```bash
+cd backend
+```
+
+3. Compilar el proyecto:
+```bash
+mvn clean install
+```
+
+### Ejecución
+
+Para ejecutar el proyecto localmente:
+```bash
+mvn spring-boot:run
+```
+
+El servicio estará disponible en `http://localhost:8080`
+
+## Documentación de la API
+
+[Incluir documentación de endpoints disponibles]
+
+## Contribución
+
+Para contribuir al proyecto:
+
+1. Crear un branch para tu feature
+2. Realizar los cambios
+3. Enviar un Pull Request
+
+## Licencia
+
+[Especificar la licencia del proyecto]
+
+## Contacto
+
+[Información de contacto del equipo]
+
 # Microservicio msv-students
 
 Backend desarrollado con **Spring Boot 2.7.18**, **Spring WebFlux**, **MongoDB Atlas**, **Reactor Core** y **Lombok**.
