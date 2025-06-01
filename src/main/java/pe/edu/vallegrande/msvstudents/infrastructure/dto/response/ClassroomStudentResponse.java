@@ -11,7 +11,7 @@ public class ClassroomStudentResponse {
     private String classroomId;
     private String studentId;
     private LocalDate enrollmentDate;
-    private String status;
     private String enrollmentYear;
     private String enrollmentPeriod;
+    private String status;
 } 

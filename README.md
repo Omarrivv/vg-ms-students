@@ -106,7 +106,6 @@ GET    /api/v1/classroom-students/status/{status}
 GET    /api/v1/classroom-students/year/{year}
 GET    /api/v1/classroom-students/period/{period}
 ```
-
 ## Manejo de Errores
 
 El sistema incluye un manejador global de excepciones que proporciona respuestas consistentes para los siguientes casos:
@@ -132,3 +131,4 @@ El sistema incluye un manejador global de excepciones que proporciona respuestas
 3. Commit sus cambios (`git commit -m 'Add some AmazingFeature'`)
 4. Push a la rama (`git push origin feature/AmazingFeature`)
 5. Abra un Pull Request
+
